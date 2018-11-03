@@ -39,5 +39,7 @@ def parseMatch(team, match):
 	else:
 		output["alliance"] = "red"
 	
+	output["winning_alliance"] = match["winning_alliance"]
+	
 	return output
 	
