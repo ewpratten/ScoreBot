@@ -28,7 +28,7 @@ def formatSend(webhook, data, twitter_username):
 	fallback = "We have "+ wl +" "+ str(data["match_number"])
 	
 	if wl == "won":
-		win_badge = ":trophy:"
+		win_badge = ":tada:"
 	else:
 		win_badge = ""
 	
