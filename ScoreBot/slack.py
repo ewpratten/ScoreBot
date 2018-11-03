@@ -32,6 +32,15 @@ def formatSend(webhook, data, twitter_username):
 	else:
 		win_badge = ""
 	
+	if data["webcast"] != None:
+		twitch_stream = {
+			"type":"button",
+			"name":"action",
+			"text":"View live",
+			"url":data["webcast"]
+		}
+	else:
+		twitch_stream = {}
 	payload = {
 		"attachments" : [{
 			"fallback":fallback,
@@ -39,7 +48,7 @@ def formatSend(webhook, data, twitter_username):
 			"author_link":"https://www.thebluealliance.com",
 			"author_icon":"https://www.thebluealliance.com/images/tba_lamp.svg",
 			"title":"Match Results "+ win_badge,
-			"text":"For "+ str(data["match_number"]) +" at "+ str(data["event_key"]),
+			"text":"For "+ str(data["match_number"]) +" at "+ str(data["event_name"]),
 			"color": "#3AA3E3",
 			"fields":[
 				{
@@ -66,7 +75,8 @@ def formatSend(webhook, data, twitter_username):
 					"name":"action",
 					"text":"Share",
 					"url":intent_base+ formatTweetAction(twitter_username.split("@")[:-1], wl, str(data["match_number"]), str(data["event_name"]))
-				}
+				},
+				twitch_stream
 				]
 		}]
 	}
