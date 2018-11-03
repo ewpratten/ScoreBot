@@ -16,7 +16,7 @@ def getEventData(tba_key, tba_api, event_key, team):
 	
 	output = requests.get(tba_api + "/team/"+ team_key +"/event/"+ event_key +"/matches", params={"X-TBA-Auth-Key":tba_key}).json()
 	event = requests.get(tba_api + "/event/"+ str(event_key), params={"X-TBA-Auth-Key":tba_key}).json()
-	output["event_name"] = event["name"]
+	output["event_name"] = event["short_name"]
 	output["webcasts"] = event["webcasts"]
 	return 
 
