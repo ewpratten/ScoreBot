@@ -17,7 +17,7 @@ def send(webhook, message):
 		print("Could not send message to slack")
 		print(response)
 
-def formatSend(webhook, data):
+def formatSend(webhook, data, twitter_username):
 	if data["winning_alliance"] == data["alliance"]:
 		wl = "won"
 	else:
@@ -64,7 +64,7 @@ def formatSend(webhook, data):
 					"type":"button",
 					"name":"action",
 					"text":"Share",
-					"url":intent_base+ formatTweetAction("frc5024", wl, str(data["match_number"]), str(data["event_key"]))
+					"url":intent_base+ formatTweetAction(twitter_username.split("@")[:-1], wl, str(data["match_number"]), str(data["event_name"]))
 				}
 				]
 		}]
