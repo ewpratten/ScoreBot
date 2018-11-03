@@ -1,4 +1,12 @@
 import requests
+import random
+
+def formatTweetAction(username, wl, match_key, event_name):
+	output =  f"@{username} has just {wl} {match_key} at {event_name}."
+	if wl == "won":
+		rand_list = [" Good job!", " Nice work!", " Go team!"]
+		output += str(random.choice(rand_list))
+	return output
 
 def send(webhook, message):
 	# payload = {"text": message}
