@@ -14,7 +14,9 @@ def getEventKeys(tba_key, tba_api, team):
 def getEventData(tba_key, tba_api, event_key, team):
 	team_key = "frc"+str(team)
 	
-	return requests.get(tba_api + "/team/"+ team_key +"/event/"+ event_key +"/matches", params={"X-TBA-Auth-Key":tba_key}).json()
+	output = requests.get(tba_api + "/team/"+ team_key +"/event/"+ event_key +"/matches", params={"X-TBA-Auth-Key":tba_key}).json()
+	output["event_name"] = requests.get(tba_api + "/event/"+ str(event_key), params={"X-TBA-Auth-Key":tba_key}).json()["name"]
+	return 
 
 def parseMatch(team, match):
 	team_key = "frc"+str(team)
@@ -40,6 +42,7 @@ def parseMatch(team, match):
 		output["alliance"] = "red"
 	
 	output["winning_alliance"] = match["winning_alliance"]
+	output["event_name"] = match["event_name"]
 	
 	return output
 	
