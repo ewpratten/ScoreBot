@@ -20,6 +20,8 @@ def send(webhook, message):
 def formatSend(webhook, data):
 	wl = "won"
 	
+	intent_base = "https://twitter.com/intent/tweet?text="
+	
 	fallback = "We have "+ wl +" "+ str(data["match_number"])
 	
 	if wl == "won":
@@ -53,6 +55,13 @@ def formatSend(webhook, data):
 					"name":"action",
 					"text":"View More",
 					"url":"https://www.thebluealliance.com/event/"+ str(data["event_key"]),
+					"style":"primary"
+				},
+				{
+					"type":"button",
+					"name":"action",
+					"text":"Share",
+					"url":intent_base+ formatTweetAction("frc5024", wl, str(data["match_number"]), str(data["event_key"])),
 					"style":"primary"
 				}
 				]
