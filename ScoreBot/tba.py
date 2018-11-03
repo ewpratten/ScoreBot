@@ -50,6 +50,14 @@ def parseMatch(team, match):
 	for cast in match["webcasts"]:
 		if cast["type"] == "twitch":
 			output["webcast"] = "https://twitch.tv/"+ cast["channel"]
+	output["blue_teams"] = []
+	output["red_teams"] = []
+	
+	for team in match["alliances"]["blue"]["team_keys"]:
+		output["blue_teams"].append(team[3:])
+		
+	for team in match["alliances"]["red"]["team_keys"]:
+		output["red_teams"].append(team[3:])
 			
 	
 	return output
