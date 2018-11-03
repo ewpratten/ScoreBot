@@ -15,7 +15,9 @@ def getEventData(tba_key, tba_api, event_key, team):
 	team_key = "frc"+str(team)
 	
 	output = requests.get(tba_api + "/team/"+ team_key +"/event/"+ event_key +"/matches", params={"X-TBA-Auth-Key":tba_key}).json()
-	output["event_name"] = requests.get(tba_api + "/event/"+ str(event_key), params={"X-TBA-Auth-Key":tba_key}).json()["name"]
+	event = requests.get(tba_api + "/event/"+ str(event_key), params={"X-TBA-Auth-Key":tba_key}).json()
+	output["event_name"] = event["name"]
+	output["webcasts"] = event["webcasts"]
 	return 
 
 def parseMatch(team, match):
@@ -43,6 +45,12 @@ def parseMatch(team, match):
 	
 	output["winning_alliance"] = match["winning_alliance"]
 	output["event_name"] = match["event_name"]
+	
+	output["webcast"] = None
+	for cast in match["webcasts"]:
+		if cast["type"] == "twitch":
+			output["webcast"] = "https://twitch.tv/"+ cast["channel"]
+			
 	
 	return output
 	
