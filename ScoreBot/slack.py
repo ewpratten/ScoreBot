@@ -40,6 +40,7 @@ def formatSend(webhook, data, twitter_username):
 			"author_icon":"https://www.thebluealliance.com/images/tba_lamp.svg",
 			"title":"Match Results "+ win_badge,
 			"text":"For "+ str(data["match_number"]) +" at "+ str(data["event_key"]),
+			"color": "#3AA3E3",
 			"fields":[
 				{
 				"title":"Blue Score",
