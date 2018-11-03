@@ -1,8 +1,54 @@
 import requests
 
 def send(webhook, message):
-	payload = {"text": message}
+	# payload = {"text": message}
+	payload = message
 	
-	response = requests.post(webhook, data=payload, headers={"Content-Type":"application/json"})
+	response = requests.post(webhook, data=str(payload), headers={"Content-Type":"application/json"})
 	if response.status_code != 200:
 		print("Could not send message to slack")
+		print(response)
+
+def formatSend(webhook, data):
+	wl = "won"
+	
+	fallback = "We have "+ wl +" "+ str(data["match_number"])
+	
+	if wl == "won":
+		win_badge = ":trophy:"
+	else:
+		win_badge = ""
+	
+	payload = {
+		"attachments" : [{
+			"fallback":fallback,
+			"author_name":"The Blue Alliance",
+			"author_link":"https://www.thebluealliance.com",
+			"author_icon":"https://www.thebluealliance.com/images/tba_lamp.svg",
+			"title":"Match Results "+ win_badge,
+			"text":"For "+ str(data["match_number"]) +" at "+ str(data["event_key"]),
+			"fields":[
+				{
+				"title":"Blue Score",
+				"value":str(data["blue_score"]),
+				"short": True
+			},
+			{
+				"title":"Red Score",
+				"value":str(data["red_score"]),
+				"short": True
+			}
+			],
+			"actions":[
+				{
+					"type":"button",
+					"name":"action",
+					"text":"View More",
+					"url":"https://www.thebluealliance.com/event/"+ str(data["event_key"]),
+					"style":"primary"
+				}
+				]
+		}]
+	}
+	
+	send(webhook, payload)
