@@ -46,7 +46,7 @@ def parseMatch(team, match):
 	output["winning_alliance"] = match["winning_alliance"]
 	output["event_name"] = match["event_name"]
 	
-	output["webcast"] = None
+	output["webcast"] = "https://www.thebluealliance.com/gameday/"+ output["event_key"]
 	for cast in match["webcasts"]:
 		if cast["type"] == "twitch":
 			output["webcast"] = "https://twitch.tv/"+ cast["channel"]
