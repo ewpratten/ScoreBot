@@ -60,7 +60,18 @@ def formatSend(webhook, data, twitter_username):
 				"title":"Red Score",
 				"value":str(data["red_score"]),
 				"short": True
-			}
+			},
+			{
+				"title":"Teams",
+				"value":str(data["blue_teams"]),
+				"short": True
+			},
+			{
+				"title":"Teams",
+				"value":str(data["red_teams"]),
+				"short": True
+			},
+				
 			],
 			"actions":[
 				{
@@ -81,4 +92,36 @@ def formatSend(webhook, data, twitter_username):
 		}]
 	}
 	
+	send(webhook, payload)
+
+def formatPicked(webhook, data, team):
+	payload = {
+		    "attachments": [
+			{
+			    "fallback": f"Team {team} has been picked for alliance #{data["pick_number"]}",
+			    "color": "#36a64f",
+			    "author_name": "The Blue Alliance",
+			    "author_link": "https://www.thebluealliance.com/",
+			    "title": "Alliance Selection Results",
+			    "text": f"Team {team} has been picked for alliance #{data["pick_number"]}",
+			    "fields": [
+				{
+				    "title": "Picker",
+				    "value": data["picker"],
+				    "short": true
+				},
+						{
+				    "title": "Pick 1",
+				    "value": data["pick_1"],
+				    "short": true
+				},
+						{
+				    "title": "Pick 2",
+				    "value": data["pick_2"],
+				    "short": true
+				}
+			    ]
+			}
+		    ]
+		}
 	send(webhook, payload)
